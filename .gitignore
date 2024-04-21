@@ -6,3 +6,4 @@ dist-ssr
 coverage
 .env
 build
+prev-README.md
