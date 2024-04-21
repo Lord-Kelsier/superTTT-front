@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  website:
+    container_name: superTTT-front
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5317:5317"
+    volumes:
+      - .:/App
+      - /App/node_modules # this is to prevent the node_modules folder from being overwritten by the volume
+    environment:
+      - VITE_PORT=5317
+
