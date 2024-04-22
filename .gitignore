@@ -7,3 +7,4 @@ coverage
 .env
 build
 prev-README.md
+.vscode
