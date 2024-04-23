@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react';
 import React, { useState, useContext, AnchorHTMLAttributes } from 'react';
 import { loginRegisterContext } from '../shared/contexts/login-registerContext';
+import { useFetchPost } from '../shared/services/useFetch';
 
 function RegisterForm() {
   const [username, setUsername] = useState('');
@@ -23,22 +24,19 @@ function RegisterForm() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const loginURL = 'http://localhost:5318/login/';
-    const response = await fetch(loginURL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: username,
-        password: password,
-      }),
+    const registerURL = 'http://localhost:5318/register/';
+    const response = await useFetchPost(registerURL, {
+      username: username,
+      password: password,
+      password2: passwordConf,
+      email: email,
     });
-    const responseFormatted = await response.json();
-    if (response.status === 200) {
-      localStorage.setItem('accessToken', responseFormatted.access);
-      localStorage.setItem('refreshToken', responseFormatted.refresh);
+    if (response.statusCode === 201) {
+      setHasAnAcount(true);
+    } else {
+      console.log(response.data);
     }
+    // mostrar errores
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -74,7 +72,7 @@ function RegisterForm() {
         />
         <Flex align="baseline" gap="10px">
           <Button my="15px" type="submit">
-            Ingresar
+            Registrar
           </Button>
           <Text>
             Ya tienes una cuenta?{' '}

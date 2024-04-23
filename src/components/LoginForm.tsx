@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react';
 import React, { useState, useContext } from 'react';
 import { loginRegisterContext } from '../shared/contexts/login-registerContext';
+import { useFetchPost } from '../shared/services/useFetch';
 
 function LoginForm() {
   const [username, setUsername] = useState('');
@@ -21,21 +22,17 @@ function LoginForm() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const loginURL = 'http://localhost:5318/login/';
-    const response = await fetch(loginURL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: username,
-        password: password,
-      }),
+    const response = await useFetchPost(loginURL, {
+      username: username,
+      password: password,
     });
-    const responseFormatted = await response.json();
-    if (response.status === 200) {
-      localStorage.setItem('accessToken', responseFormatted.access);
-      localStorage.setItem('refreshToken', responseFormatted.refresh);
+    if (response.statusCode === 200) {
+      localStorage.setItem('accessToken', response.access);
+      localStorage.setItem('refreshToken', response.refresh);
+    } else {
+      console.log(response);
     }
+    // lanzar alerta
   };
   return (
     <form onSubmit={handleSubmit}>
