@@ -12,6 +12,7 @@ import {
 
 import loginRegisterContext from '../shared/contexts/login-registerContext';
 import { useFetchPost } from '../shared/services/useFetch';
+import { PasswordInput, TextInput } from './Forms/InputHandlers';
 
 /* eslint no-console: 0 */
 
@@ -21,9 +22,8 @@ function LoginForm() {
   const setHasAnAcount = useContext(loginRegisterContext);
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setUsername(event.target.value);
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setPassword(event.target.value);
   const useHandleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    // !! no dejar que se envie la request si faltan campos
     event.preventDefault();
     const loginURL = 'http://localhost:5318/login/';
     const response = await useFetchPost(loginURL, {
@@ -43,19 +43,13 @@ function LoginForm() {
       <FormControl>
         <Text>Log In</Text>
         <FormLabel my="15px">Nombre de usuario</FormLabel>
-        <Input
-          isInvalid={username === ''}
-          type="text"
-          value={username}
-          onChange={handleUsernameChange}
+        <TextInput
+          textState={username}
+          textSetter={setUsername}
+          inputType="text"
         />
         <FormLabel my="15px">Contraseña</FormLabel>
-        <Input
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-          isInvalid={password === ''}
-        />
+        <PasswordInput passState={password} passSetter={setPassword} />
         <Flex align="baseline" gap="10px">
           <Button my="15px" type="submit">
             Ingresar
