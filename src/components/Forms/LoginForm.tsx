@@ -7,6 +7,7 @@ import {
   Link,
   Text,
   Collapse,
+  Spinner,
 } from '@chakra-ui/react';
 
 import loginRegisterContext from '../../shared/contexts/login-registerContext';
@@ -19,15 +20,19 @@ function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorText, setErrorText] = useState('');
+  const [isSubmitLoading, setIsSubmitLoading] = useState(false);
   const setHasAnAcount = useContext(loginRegisterContext);
   const useHandleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     // !! no dejar que se envie la request si faltan campos
     event.preventDefault();
+    if (isSubmitLoading) return;
     const loginURL = 'http://localhost:5318/login/';
+    setIsSubmitLoading(true);
     const response = await useFetchPost(loginURL, {
       username,
       password,
     });
+    setIsSubmitLoading(false);
     if (response.statusCode === 200) {
       localStorage.setItem('accessToken', response.access);
       localStorage.setItem('refreshToken', response.refresh);
@@ -50,7 +55,7 @@ function LoginForm() {
       <PasswordInput password={password} passwordSetter={setPassword} />
       <Flex align="baseline" gap="10px">
         <Button my="15px" type="submit">
-          Ingresar
+          {isSubmitLoading ? <Spinner /> : 'Ingresar'}
         </Button>
         <Text>
           Aun no tienes una cuenta?{' '}

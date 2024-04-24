@@ -9,6 +9,7 @@ import {
   Collapse,
   UnorderedList,
   ListItem,
+  Spinner,
 } from '@chakra-ui/react';
 
 import loginRegisterContext from '../../shared/contexts/login-registerContext';
@@ -27,18 +28,22 @@ function RegisterForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConf, setPasswordConf] = useState('');
+  const [isSubmitLoading, setIsSubmitLoading] = useState(false);
   const [errorResponse, setErrorResponse] = useState<errorResponse>({});
   const setHasAnAcount = useContext(loginRegisterContext);
   const useHandleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     // !! no dejar que se envie la request si faltan campos
     event.preventDefault();
+    if (isSubmitLoading) return;
     const registerURL = 'http://localhost:5318/register/';
+    setIsSubmitLoading(true);
     const response = await useFetchPost(registerURL, {
       username,
       password,
       password2: passwordConf,
       email,
     });
+    setIsSubmitLoading(false);
     if (response.statusCode === 201) {
       setHasAnAcount(true);
     } else if (response.statusCode === 400) {
@@ -65,7 +70,7 @@ function RegisterForm() {
       <PasswordInput password={passwordConf} passwordSetter={setPasswordConf} />
       <Flex align="baseline" gap="10px">
         <Button my="15px" type="submit">
-          Registrar
+          {isSubmitLoading ? <Spinner /> : 'Registrar'}
         </Button>
         <Text>
           Ya tienes una cuenta?{' '}
