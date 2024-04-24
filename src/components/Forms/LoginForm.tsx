@@ -5,14 +5,13 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  Input,
   Link,
   Text,
 } from '@chakra-ui/react';
 
-import loginRegisterContext from '../shared/contexts/login-registerContext';
-import { useFetchPost } from '../shared/services/useFetch';
-import { PasswordInput, TextInput } from './Forms/InputHandlers';
+import loginRegisterContext from '../../shared/contexts/login-registerContext';
+import { useFetchPost } from '../../shared/services/useFetch';
+import { PasswordInput, TextInput } from './InputHandlers';
 
 /* eslint no-console: 0 */
 
@@ -20,8 +19,6 @@ function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const setHasAnAcount = useContext(loginRegisterContext);
-  const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setUsername(event.target.value);
   const useHandleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     // !! no dejar que se envie la request si faltan campos
     event.preventDefault();

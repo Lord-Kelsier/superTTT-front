@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import { Box, Container } from '@chakra-ui/react';
 
-import LoginForm from './components/LoginForm';
-import RegisterForm from './components/RegisterForm';
+import LoginForm from './components/Forms/LoginForm';
+import RegisterForm from './components/Forms/RegisterForm';
 // import ThemeToggleButton from './components/ThemeToggleButton';
 import loginRegisterContext from './shared/contexts/login-registerContext';
 

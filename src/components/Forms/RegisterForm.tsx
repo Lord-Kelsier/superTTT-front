@@ -1,18 +1,10 @@
 import React, { useContext, useState } from 'react';
 
-import {
-  Button,
-  Flex,
-  FormControl,
-  FormLabel,
-  Input,
-  Link,
-  Text,
-} from '@chakra-ui/react';
+import { Button, Flex, FormLabel, Link, Text } from '@chakra-ui/react';
 
-import loginRegisterContext from '../shared/contexts/login-registerContext';
-import { useFetchPost } from '../shared/services/useFetch';
-import { PasswordInput, TextInput } from './Forms/InputHandlers';
+import loginRegisterContext from '../../shared/contexts/login-registerContext';
+import { useFetchPost } from '../../shared/services/useFetch';
+import { PasswordInput, TextInput } from './InputHandlers';
 
 /* eslint no-console: 0 */
 
