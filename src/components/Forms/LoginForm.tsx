@@ -3,10 +3,10 @@ import React, { useContext, useState } from 'react';
 import {
   Button,
   Flex,
-  FormControl,
   FormLabel,
   Link,
   Text,
+  Collapse,
 } from '@chakra-ui/react';
 
 import loginRegisterContext from '../../shared/contexts/login-registerContext';
@@ -18,6 +18,7 @@ import { PasswordInput, TextInput } from './InputHandlers';
 function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errorText, setErrorText] = useState('');
   const setHasAnAcount = useContext(loginRegisterContext);
   const useHandleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     // !! no dejar que se envie la request si faltan campos
@@ -30,35 +31,38 @@ function LoginForm() {
     if (response.statusCode === 200) {
       localStorage.setItem('accessToken', response.access);
       localStorage.setItem('refreshToken', response.refresh);
+    } else if ('detail' in response) {
+      setErrorText(response.detail);
     } else {
       console.log(response);
     }
-    // lanzar alerta
   };
   return (
     <form onSubmit={useHandleSubmit}>
-      <FormControl>
-        <Text>Log In</Text>
-        <FormLabel my="15px">Nombre de usuario</FormLabel>
-        <TextInput
-          textState={username}
-          textSetter={setUsername}
-          inputType="text"
-        />
-        <FormLabel my="15px">Contraseña</FormLabel>
-        <PasswordInput passState={password} passSetter={setPassword} />
-        <Flex align="baseline" gap="10px">
-          <Button my="15px" type="submit">
-            Ingresar
-          </Button>
-          <Text>
-            Aun no tienes una cuenta?{' '}
-            {/* eslint-disable-next-line -- Solo para parecer a las 
-            páginas tipicas y no utilizar el router aun */}
-            <Link onClick={() => setHasAnAcount(false)}>Registrate aquí</Link>
-          </Text>
-        </Flex>
-      </FormControl>
+      <Text>Log In</Text>
+      <FormLabel my="15px">Nombre de usuario</FormLabel>
+      <TextInput
+        textState={username}
+        textSetter={setUsername}
+        inputType="text"
+      />
+      <FormLabel my="15px">Contraseña</FormLabel>
+      <PasswordInput password={password} passwordSetter={setPassword} />
+      <Flex align="baseline" gap="10px">
+        <Button my="15px" type="submit">
+          Ingresar
+        </Button>
+        <Text>
+          Aun no tienes una cuenta?{' '}
+          {/* eslint-disable-next-line -- Solo para parecer a las 
+          páginas tipicas y no utilizar el router aun */}
+          <Link onClick={() => setHasAnAcount(false)}>Registrate aquí</Link>
+        </Text>
+      </Flex>
+      <Collapse in={errorText !== ''}>
+        <Text>Errores:</Text>
+        <Text color="red.200">{errorText}</Text>
+      </Collapse>
     </form>
   );
 }

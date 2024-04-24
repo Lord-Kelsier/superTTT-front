@@ -1,18 +1,33 @@
 import React, { useContext, useState } from 'react';
 
-import { Button, Flex, FormLabel, Link, Text } from '@chakra-ui/react';
+import {
+  Button,
+  Flex,
+  FormLabel,
+  Link,
+  Text,
+  Collapse,
+  UnorderedList,
+  ListItem,
+} from '@chakra-ui/react';
 
 import loginRegisterContext from '../../shared/contexts/login-registerContext';
 import { useFetchPost } from '../../shared/services/useFetch';
 import { PasswordInput, TextInput } from './InputHandlers';
 
 /* eslint no-console: 0 */
-
+interface errorResponse {
+  username?: Array<string>;
+  password?: Array<string>;
+  password2?: Array<string>;
+  email?: Array<string>;
+}
 function RegisterForm() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConf, setPasswordConf] = useState('');
+  const [errorResponse, setErrorResponse] = useState<errorResponse>({});
   const setHasAnAcount = useContext(loginRegisterContext);
   const useHandleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     // !! no dejar que se envie la request si faltan campos
@@ -26,10 +41,12 @@ function RegisterForm() {
     });
     if (response.statusCode === 201) {
       setHasAnAcount(true);
-    } else {
-      console.log(response.data);
+    } else if (response.statusCode === 400) {
+      delete response.statusCode;
+      setErrorResponse(response);
+    } else if ('username') {
+      console.log(response);
     }
-    // mostrar errores
   };
   return (
     <form onSubmit={useHandleSubmit}>
@@ -43,9 +60,9 @@ function RegisterForm() {
         inputType="text"
       />
       <FormLabel my="15px">Contraseña</FormLabel>
-      <PasswordInput passState={password} passSetter={setPassword} />
+      <PasswordInput password={password} passwordSetter={setPassword} />
       <FormLabel my="15px">Confirmar contraseña</FormLabel>
-      <PasswordInput passState={passwordConf} passSetter={setPasswordConf} />
+      <PasswordInput password={passwordConf} passwordSetter={setPasswordConf} />
       <Flex align="baseline" gap="10px">
         <Button my="15px" type="submit">
           Registrar
@@ -57,6 +74,19 @@ function RegisterForm() {
           <Link onClick={() => setHasAnAcount(true)}>Ingresa aquí</Link>
         </Text>
       </Flex>
+      <Collapse in={Object.keys(errorResponse).length !== 0}>
+        <Text>Errores</Text>
+        <UnorderedList color="red.300">
+          {Object.entries(errorResponse).map(([field, errors], idx) => {
+            return (
+              <ListItem key={idx}>
+                <Text>{field}:</Text>
+                <Text>{errors.join(', ')}</Text>
+              </ListItem>
+            );
+          })}
+        </UnorderedList>
+      </Collapse>
     </form>
   );
 }
