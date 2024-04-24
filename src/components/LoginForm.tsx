@@ -1,14 +1,16 @@
+import React, { useContext, useState } from 'react';
+
 import {
+  Button,
+  Flex,
   FormControl,
   FormLabel,
   Input,
-  Button,
-  Text,
-  Flex,
   Link,
+  Text,
 } from '@chakra-ui/react';
-import React, { useState, useContext } from 'react';
-import { loginRegisterContext } from '../shared/contexts/login-registerContext';
+
+import loginRegisterContext from '../shared/contexts/login-registerContext';
 import { useFetchPost } from '../shared/services/useFetch';
 
 function LoginForm() {
@@ -19,12 +21,12 @@ function LoginForm() {
     setUsername(event.target.value);
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setPassword(event.target.value);
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const useHandleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const loginURL = 'http://localhost:5318/login/';
     const response = await useFetchPost(loginURL, {
-      username: username,
-      password: password,
+      username,
+      password,
     });
     if (response.statusCode === 200) {
       localStorage.setItem('accessToken', response.access);
@@ -35,7 +37,7 @@ function LoginForm() {
     // lanzar alerta
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={useHandleSubmit}>
       <FormControl>
         <Text>Log In</Text>
         <FormLabel my="15px">Nombre de usuario</FormLabel>
@@ -58,7 +60,9 @@ function LoginForm() {
           </Button>
           <Text>
             Aun no tienes una cuenta?{' '}
-            <Link onClick={(e) => setHasAnAcount(false)}>Registrate aquí</Link>
+            {/* eslint-disable-next-line -- Solo para parecer a las 
+            páginas tipicas y no utilizar el router aun */}
+            <Link onClick={() => setHasAnAcount(false)}>Registrate aquí</Link>
           </Text>
         </Flex>
       </FormControl>

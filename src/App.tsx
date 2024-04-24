@@ -1,10 +1,11 @@
+import { useState } from 'react';
+
 import { Box, Container } from '@chakra-ui/react';
-import { loginRegisterContext as hasAnAcount } from './shared/contexts/login-registerContext';
+
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
-import { loginRegisterContext } from './shared/contexts/login-registerContext';
-import ThemeToggleButton from './components/ThemeToggleButton';
-import { useState } from 'react';
+// import ThemeToggleButton from './components/ThemeToggleButton';
+import loginRegisterContext from './shared/contexts/login-registerContext';
 
 function App(): JSX.Element {
   const [hasAnAcount, setHasAnAcount] = useState(true);

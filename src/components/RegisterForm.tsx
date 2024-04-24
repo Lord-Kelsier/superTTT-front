@@ -1,14 +1,16 @@
+import React, { useContext, useState } from 'react';
+
 import {
+  Button,
+  Flex,
   FormControl,
   FormLabel,
   Input,
-  Button,
-  Text,
-  Flex,
   Link,
+  Text,
 } from '@chakra-ui/react';
-import React, { useState, useContext, AnchorHTMLAttributes } from 'react';
-import { loginRegisterContext } from '../shared/contexts/login-registerContext';
+
+import loginRegisterContext from '../shared/contexts/login-registerContext';
 import { useFetchPost } from '../shared/services/useFetch';
 
 function RegisterForm() {
@@ -18,18 +20,22 @@ function RegisterForm() {
   const [passwordConf, setPasswordConf] = useState('');
   const { setHasAnAcount } = useContext(loginRegisterContext);
   const handleInputChange =
-    (setter: React.Dispatch<React.SetStateAction<any>>) =>
-    (event: React.ChangeEvent<HTMLInputElement>) =>
-      setter(event.target.value);
+    /* eslint-disable-next-line -- En este caso queremos que Handle input 
+    maneje cualquier funcion de setState y evitar repeticion */
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+
+      (setter: React.Dispatch<React.SetStateAction<any>>) =>
+      (event: React.ChangeEvent<HTMLInputElement>) =>
+        setter(event.target.value);
+
+  const useHandleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const registerURL = 'http://localhost:5318/register/';
     const response = await useFetchPost(registerURL, {
-      username: username,
-      password: password,
+      username,
+      password,
       password2: passwordConf,
-      email: email,
+      email,
     });
     if (response.statusCode === 201) {
       setHasAnAcount(true);
@@ -39,7 +45,7 @@ function RegisterForm() {
     // mostrar errores
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={useHandleSubmit}>
       <FormControl>
         <Text>Registro</Text>
         <FormLabel my="15px">Correo</FormLabel>
@@ -76,7 +82,9 @@ function RegisterForm() {
           </Button>
           <Text>
             Ya tienes una cuenta?{' '}
-            <Link onClick={(e) => setHasAnAcount(true)}>Ingresa aquí</Link>
+            {/* eslint-disable-next-line -- Solo para parecer a las
+              páginas tipicas y no utilizar el router aun */}
+            <Link onClick={() => setHasAnAcount(true)}>Ingresa aquí</Link>
           </Text>
         </Flex>
       </FormControl>

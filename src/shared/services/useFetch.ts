@@ -4,6 +4,8 @@ async function parseWithStatus(response: Response) {
   formatted.statusCode = statusCode;
   return formatted;
 }
+/* eslint-disable-next-line -- Aqui body puede ser cualquier objeto por lo 
+  que es necesario que exista el any */
 async function useFetchPost(url: string, body: any) {
   const response = await fetch(url, {
     method: 'POST',
@@ -18,4 +20,4 @@ async function useFetch(url: string) {
   const response = await fetch(url);
   return parseWithStatus(response);
 }
-export { useFetchPost, useFetch };
+export { useFetch, useFetchPost };
