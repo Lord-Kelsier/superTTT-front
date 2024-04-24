@@ -12,7 +12,7 @@ function App(): JSX.Element {
   return (
     <Box alignContent="center">
       <Container background="blue.700" mt="35vh" borderRadius="20px" p="15px">
-        <loginRegisterContext.Provider value={{ hasAnAcount, setHasAnAcount }}>
+        <loginRegisterContext.Provider value={setHasAnAcount}>
           {hasAnAcount ? <LoginForm /> : <RegisterForm />}
         </loginRegisterContext.Provider>
       </Container>

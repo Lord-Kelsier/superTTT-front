@@ -13,10 +13,12 @@ import {
 import loginRegisterContext from '../shared/contexts/login-registerContext';
 import { useFetchPost } from '../shared/services/useFetch';
 
+/* eslint no-console: 0 */
+
 function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { setHasAnAcount } = useContext(loginRegisterContext);
+  const setHasAnAcount = useContext(loginRegisterContext);
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setUsername(event.target.value);
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) =>

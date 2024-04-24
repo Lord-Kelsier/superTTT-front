@@ -13,20 +13,18 @@ import {
 import loginRegisterContext from '../shared/contexts/login-registerContext';
 import { useFetchPost } from '../shared/services/useFetch';
 
+/* eslint no-console: 0 */
+
 function RegisterForm() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConf, setPasswordConf] = useState('');
-  const { setHasAnAcount } = useContext(loginRegisterContext);
+  const setHasAnAcount = useContext(loginRegisterContext);
   const handleInputChange =
-    /* eslint-disable-next-line -- En este caso queremos que Handle input 
-    maneje cualquier funcion de setState y evitar repeticion */
-
-
-      (setter: React.Dispatch<React.SetStateAction<any>>) =>
-      (event: React.ChangeEvent<HTMLInputElement>) =>
-        setter(event.target.value);
+    (setter: React.Dispatch<React.SetStateAction<string>>) =>
+    (event: React.ChangeEvent<HTMLInputElement>) =>
+      setter(event.target.value);
 
   const useHandleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
