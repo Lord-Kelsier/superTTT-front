@@ -1,25 +1,9 @@
-import { LobbyProps, LobbyType } from '../../shared/types/LobbyTypes';
-import { Card, Text, Box } from '@chakra-ui/react';
+import { LobbyType } from '../../shared/types/LobbyTypes';
+import { Text, Flex } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import { useFetch } from '../../shared/services/useFetch';
 import { superTTTApiBaseUrl } from '../../shared/consts';
-
-function Lobby({ title }: LobbyProps) {
-  return (
-    <Card
-      w="100%"
-      minW="150px"
-      fontSize="xl"
-      fontWeight="bold"
-      minH="70px"
-      my="10px"
-      p="2"
-      bg="blue.800"
-    >
-      <Text>{title}</Text>
-    </Card>
-  );
-}
+import LobbyCard from './LobbyCard';
 
 function LobbyContainer() {
   const [lobbyList, setLobbyList] = useState<LobbyType[]>([]);
@@ -33,13 +17,19 @@ function LobbyContainer() {
     });
   }, []);
   return (
-    <Box maxH="800px" overflow="auto">
+    <Flex
+      justifyContent="space-evenly"
+      gap="5px"
+      maxH="800px"
+      overflow="auto"
+      wrap="wrap"
+    >
       {lobbyList.length !== 0 ? (
-        lobbyList.map((lobby) => <Lobby key={lobby.id} title={lobby.title} />)
+        lobbyList.map((lobby) => <LobbyCard key={lobby.id} lobbyInfo={lobby} />)
       ) : (
         <Text>No hay lobbies creados</Text>
       )}
-    </Box>
+    </Flex>
   );
 }
 
