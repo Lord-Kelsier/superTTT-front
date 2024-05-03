@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import {
   Button,
   Flex,
@@ -17,6 +17,7 @@ import { PasswordInput, TextInput } from './InputHandlers';
 /* eslint no-console: 0 */
 
 function LoginForm() {
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorText, setErrorText] = useState('');
@@ -36,6 +37,7 @@ function LoginForm() {
     if (response.statusCode === 200) {
       localStorage.setItem('accessToken', response.access);
       localStorage.setItem('refreshToken', response.refresh);
+      navigate('/lobby');
     } else if ('detail' in response) {
       setErrorText(response.detail);
     } else {

@@ -1,13 +1,18 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
 import ErrorPage from './errorRoute';
+import LobbySelection from './components/Lobby/LobbySelection';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     errorElement: <ErrorPage />,
-    children: [],
+  },
+  {
+    path: 'lobby',
+    element: <LobbySelection />,
+    errorElement: <ErrorPage />,
   },
 ]);
 

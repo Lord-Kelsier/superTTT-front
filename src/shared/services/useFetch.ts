@@ -16,8 +16,16 @@ async function useFetchPost(url: string, body: any) {
   });
   return parseWithStatus(response);
 }
-async function useFetch(url: string) {
-  const response = await fetch(url);
-  return parseWithStatus(response);
+async function useFetch(url: string, token?: string | null) {
+  let response: Response;
+  if (token === undefined || token === null) {
+    response = await fetch(url);
+  } else {
+    response = await fetch(url, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+  const parsedResponse = await parseWithStatus(response);
+  return parsedResponse;
 }
 export { useFetch, useFetchPost };
