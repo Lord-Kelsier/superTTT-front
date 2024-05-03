@@ -37,17 +37,16 @@ function RegisterForm() {
     if (isSubmitLoading) return;
     const registerURL = 'http://localhost:5318/register/';
     setIsSubmitLoading(true);
-    const response = await useFetchPost(registerURL, {
+    const [response, statusCode] = await useFetchPost(registerURL, {
       username,
       password,
       password2: passwordConf,
       email,
     });
     setIsSubmitLoading(false);
-    if (response.statusCode === 201) {
+    if (statusCode === 201) {
       setHasAnAcount(true);
-    } else if (response.statusCode === 400) {
-      delete response.statusCode;
+    } else if (statusCode === 400) {
       setErrorResponse(response);
     } else if ('username') {
       console.log(response);

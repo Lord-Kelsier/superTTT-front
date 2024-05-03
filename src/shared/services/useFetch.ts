@@ -1,8 +1,7 @@
 async function parseWithStatus(response: Response) {
   const statusCode = response.status;
   const formatted = await response.json();
-  formatted.statusCode = statusCode;
-  return formatted;
+  return [formatted, statusCode];
 }
 /* eslint-disable-next-line -- Aqui body puede ser cualquier objeto por lo 
   que es necesario que exista el any */
@@ -25,7 +24,6 @@ async function useFetch(url: string, token?: string | null) {
       headers: { Authorization: `Bearer ${token}` },
     });
   }
-  const parsedResponse = await parseWithStatus(response);
-  return parsedResponse;
+  return parseWithStatus(response);
 }
 export { useFetch, useFetchPost };

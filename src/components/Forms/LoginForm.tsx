@@ -29,12 +29,12 @@ function LoginForm() {
     if (isSubmitLoading) return;
     const loginURL = 'http://localhost:5318/login/';
     setIsSubmitLoading(true);
-    const response = await useFetchPost(loginURL, {
+    const [response, statusCode] = await useFetchPost(loginURL, {
       username,
       password,
     });
     setIsSubmitLoading(false);
-    if (response.statusCode === 200) {
+    if (statusCode === 200) {
       localStorage.setItem('accessToken', response.access);
       localStorage.setItem('refreshToken', response.refresh);
       navigate('/lobby');
