@@ -15,6 +15,7 @@ import {
 import loginRegisterContext from '../../shared/contexts/login-registerContext';
 import { useFetchPost } from '../../shared/services/useFetch';
 import { PasswordInput, TextInput } from './InputHandlers';
+import { superTTTApiBaseUrl } from '../../shared/consts';
 
 /* eslint no-console: 0 */
 interface errorResponse {
@@ -35,7 +36,7 @@ function RegisterForm() {
     // !! no dejar que se envie la request si faltan campos
     event.preventDefault();
     if (isSubmitLoading) return;
-    const registerURL = 'http://localhost:5318/register/';
+    const registerURL = `${superTTTApiBaseUrl}/register/`;
     setIsSubmitLoading(true);
     const [response, statusCode] = await useFetchPost(registerURL, {
       username,

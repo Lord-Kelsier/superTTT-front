@@ -2,6 +2,7 @@ import { LobbyProps, LobbyType } from '../../shared/types/LobbyTypes';
 import { Card, Text, Box } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import { useFetch } from '../../shared/services/useFetch';
+import { superTTTApiBaseUrl } from '../../shared/consts';
 
 function Lobby({ title }: LobbyProps) {
   return (
@@ -24,7 +25,7 @@ function LobbyContainer() {
   const [lobbyList, setLobbyList] = useState<LobbyType[]>([]);
   useEffect(() => {
     useFetch(
-      'http://localhost:5318/api/v1/lobby/',
+      `${superTTTApiBaseUrl}/api/v1/lobby/`,
       localStorage.getItem('accessToken')
     ).then(([lobbies, statusCode]) => {
       console.log(lobbies);

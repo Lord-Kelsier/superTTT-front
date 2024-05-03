@@ -13,6 +13,7 @@ import {
 import loginRegisterContext from '../../shared/contexts/login-registerContext';
 import { useFetchPost } from '../../shared/services/useFetch';
 import { PasswordInput, TextInput } from './InputHandlers';
+import { superTTTApiBaseUrl } from '../../shared/consts';
 
 /* eslint no-console: 0 */
 
@@ -27,7 +28,7 @@ function LoginForm() {
     // !! no dejar que se envie la request si faltan campos
     event.preventDefault();
     if (isSubmitLoading) return;
-    const loginURL = 'http://localhost:5318/login/';
+    const loginURL = `${superTTTApiBaseUrl}/login/`;
     setIsSubmitLoading(true);
     const [response, statusCode] = await useFetchPost(loginURL, {
       username,
