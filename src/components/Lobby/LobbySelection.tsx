@@ -1,20 +1,45 @@
-import { Box, Text, UnorderedList } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
-import { useFetch } from '../../shared/services/useFetch';
-import { LobbyType } from '../../shared/types/LobbyTypes';
+import {
+  Box,
+  Text,
+  Center,
+  Grid,
+  GridItem,
+  Button,
+  HStack,
+} from '@chakra-ui/react';
+import LobbyContainer from './LobbyContainer';
 
+function SidePanel() {
+  return (
+    <HStack justifyContent="center">
+      <Button w="80%"> + Crear Lobby</Button>
+    </HStack>
+  );
+}
 function LobbySelection() {
-  const [lobbyList, setLobbyList] = useState();
-  useEffect(() => {
-    const lobbies = useFetch(
-      'http://localhost:5318/api/v1/lobby/',
-      localStorage.getItem('accessToken')
-    );
-    console.log(lobbies);
-  }, []);
   return (
     <Box>
-      <Text>Lista de Lobbies</Text>
+      <Center bg="blue.800">
+        <Text>Lista de Lobbies</Text>
+      </Center>
+      <Grid
+        templateAreas={`"panel lobbies"`}
+        templateColumns={'25% 1fr'}
+        gap="1"
+      >
+        <GridItem
+          borderRadius="0 0 5px 5px"
+          p="2"
+          pt="5"
+          bg="blue.800"
+          area="panel"
+        >
+          <SidePanel />
+        </GridItem>
+        <GridItem p="2" bg="blue.700" area="lobbies">
+          <LobbyContainer />
+        </GridItem>
+      </Grid>
     </Box>
   );
 }
