@@ -11,7 +11,7 @@ import LobbyContainer from './LobbyContainer';
 
 function SidePanel() {
   return (
-    <HStack justifyContent="center">
+    <HStack justifyContent="center" minH="100px">
       <Button w="80%"> + Crear Lobby</Button>
     </HStack>
   );
@@ -19,8 +19,8 @@ function SidePanel() {
 function LobbySelection() {
   return (
     <Box>
-      <Center bg="blue.800">
-        <Text>Lista de Lobbies</Text>
+      <Center bg="blue.800" h="70px" mb="1">
+        <Text fontSize="2rem">Lista de Lobbies</Text>
       </Center>
       <Grid
         templateAreas={`"panel lobbies"`}
@@ -28,7 +28,7 @@ function LobbySelection() {
         gap="1"
       >
         <GridItem
-          borderRadius="0 0 5px 5px"
+          borderRadius="0 0 0 10px"
           p="2"
           pt="5"
           bg="blue.800"

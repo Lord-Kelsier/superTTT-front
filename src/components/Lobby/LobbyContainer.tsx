@@ -33,7 +33,7 @@ function LobbyContainer() {
     });
   }, []);
   return (
-    <Box>
+    <Box maxH="800px" overflow="auto">
       {lobbyList.length !== 0 ? (
         lobbyList.map((lobby) => <Lobby key={lobby.id} title={lobby.title} />)
       ) : (
