@@ -4,6 +4,8 @@ import ErrorPage from './errorRoute';
 import LobbySelection from './components/Lobby/LobbySelection';
 import Lobby from './components/Lobby/Lobby';
 import { lobbyDetailLoader, lobbyListLoader } from './components/Lobby/loaders';
+import Board from './components/Board/Board';
+
 const router = createBrowserRouter([
   {
     path: 'login',
@@ -21,6 +23,10 @@ const router = createBrowserRouter([
     element: <Lobby />,
     loader: lobbyDetailLoader,
     errorElement: <ErrorPage />,
+  },
+  {
+    path: 'game',
+    element: <Board />,
   },
 ]);
 
