@@ -1,5 +1,9 @@
 async function parseWithStatus(response: Response) {
   const statusCode = response.status;
+  const contentType = response.headers.get('Content-type');
+  if (contentType && !/.*json.*/.test(contentType)) {
+    return [{ detail: response.statusText }, statusCode];
+  }
   const formatted = await response.json();
   return [formatted, statusCode];
 }
