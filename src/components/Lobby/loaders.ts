@@ -1,15 +1,13 @@
 import { LoaderFunctionArgs, redirect } from 'react-router-dom';
 import { useFetch } from '../../shared/services/useFetch';
 import { superTTTApiBaseUrl } from '../../shared/consts';
+import { isStringAnInteger } from '../../utils/urlChecks';
 
 type LobbyDetailParam = {
   lobbyId: string;
 };
 interface LobbyDetailArgs extends LoaderFunctionArgs {
   params: LobbyDetailParam;
-}
-function isStringAnInteger(text: string) {
-  return /^\d+$/.test(text);
 }
 
 export const lobbyDetailLoader: any = async ({ params }: LobbyDetailArgs) => {

@@ -3,6 +3,7 @@ type CellProp = {
   index: number;
   height: string;
 };
+import { useLoaderData } from 'react-router-dom';
 function Cell({ index, height }: CellProp) {
   const borderColor = 'orange.900';
   const borderWidthDistribution = [
@@ -28,7 +29,7 @@ function SubBoard() {
   const height = '50px';
   const Cells = [];
   for (let i = 0; i < 9; i++) {
-    Cells.push(<Cell index={i} height={height} />);
+    Cells.push(<Cell key={i} index={i} height={height} />);
   }
   return (
     <Box p="10px" w="190px" h="185x">
@@ -50,6 +51,7 @@ function SubBoard() {
   );
 }
 function Board() {
+  const data = useLoaderData();
   return (
     <Box>
       <Text>Tablero</Text>
