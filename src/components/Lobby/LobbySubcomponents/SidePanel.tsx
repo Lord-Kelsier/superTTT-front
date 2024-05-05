@@ -71,8 +71,10 @@ function SidePanel() {
               value={gameId}
               onChange={(e) => setGameId(+e.target.value)}
             >
-              {Object.entries(GameType).map(([gameName, gameType]) => (
-                <option value={gameType}>{gameName}</option>
+              {Object.entries(GameType).map(([gameName, gameType], index) => (
+                <option key={index} value={gameType}>
+                  {gameName}
+                </option>
               ))}
             </Select>
           </ModalBody>
