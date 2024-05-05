@@ -5,7 +5,7 @@ import LobbySelection from './components/Lobby/LobbySelection';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: 'login',
     element: <App />,
     errorElement: <ErrorPage />,
   },

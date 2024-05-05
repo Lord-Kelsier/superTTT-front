@@ -15,8 +15,12 @@ function LobbyCard({ lobbyInfo }: LobbyProps) {
       fontWeight="bold"
       minH="70px"
       my="10px"
-      p="2"
+      p="5px"
       bg="blue.800"
+      transition="transform 0.1s"
+      _hover={{
+        transform: 'translate(0, -10px)',
+      }}
     >
       <HStack>
         <Text

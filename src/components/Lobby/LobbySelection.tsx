@@ -8,6 +8,7 @@ import {
   HStack,
 } from '@chakra-ui/react';
 import LobbyContainer from './LobbyContainer';
+import CloseSessionBtn from '../../shared/components/CloseSessionBtn';
 
 function SidePanel() {
   return (
@@ -19,9 +20,12 @@ function SidePanel() {
 function LobbySelection() {
   return (
     <Box>
-      <Center bg="blue.800" h="70px" mb="1">
-        <Text fontSize="2rem">Lista de Lobbies</Text>
-      </Center>
+      <Grid bg="blue.800" templateColumns={'25% 1fr'} mb="1">
+        <CloseSessionBtn m="auto" />
+        <Center h="70px" mb="1">
+          <Text fontSize="2rem">Lista de Lobbies</Text>
+        </Center>
+      </Grid>
       <Grid
         templateAreas={`"panel lobbies"`}
         templateColumns={'25% 1fr'}
