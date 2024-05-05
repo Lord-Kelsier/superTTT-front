@@ -18,7 +18,10 @@ import React, { useState } from 'react';
 import { GameType } from '../../../shared/Enums/Games';
 import { useFetchPost } from '../../../shared/services/useFetch';
 import { superTTTApiBaseUrl } from '../../../shared/consts';
+import { useNavigate } from 'react-router-dom';
+import { LobbyInfo } from '../../../shared/types/LobbyTypes';
 function SidePanel() {
+  const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [lobbyName, setLobbyName] = useState('');
   const [gameId, setGameId] = useState(0);
@@ -38,8 +41,11 @@ function SidePanel() {
     const [data, statusCode] = await useFetchPost(url, body, token);
     setIsLoading(false);
     if (statusCode === 201) {
-      setResponseUserDisp('Lobby creado exitosamente!!');
-      // redirect
+      setResponseUserDisp('Lobby creado exitosamente!! Redirigiendo');
+      setIsLoading(true);
+      await setTimeout(() => {}, 200);
+      setIsLoading(false);
+      navigate(`/lobby/${data.id}`);
     } else if ('detail' in Object.keys(data)) {
       setResponseUserDisp(data.detail);
     } else {

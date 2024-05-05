@@ -8,7 +8,7 @@ type PlayerCardProp = {
 
 function PlayerCard({ username }: PlayerCardProp) {
   return (
-    <Card bg="blue.700" p="5px">
+    <Card my="1" bg="blue.700" p="5px">
       <Text minW="150px" isTruncated>
         {username}
       </Text>
