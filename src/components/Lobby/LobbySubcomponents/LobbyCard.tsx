@@ -1,5 +1,5 @@
-import { LobbyProps } from '../../shared/types/LobbyTypes';
-import { GameTypeToName, MaxPlayers } from '../../shared/Enums/Games';
+import { LobbyProps } from '../../../shared/types/LobbyTypes';
+import { GameTypeToName, MaxPlayers } from '../../../shared/Enums/Games';
 import { Card, Flex, Text, Container, Box, HStack } from '@chakra-ui/react';
 function LobbyCard({ lobbyInfo }: LobbyProps) {
   const isListedGame = lobbyInfo.gameType in Object.keys(GameTypeToName);

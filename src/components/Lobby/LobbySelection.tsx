@@ -1,22 +1,8 @@
-import {
-  Box,
-  Text,
-  Center,
-  Grid,
-  GridItem,
-  Button,
-  HStack,
-} from '@chakra-ui/react';
-import LobbyContainer from './LobbyContainer';
+import { Box, Text, Center, Grid, GridItem } from '@chakra-ui/react';
+import LobbyContainer from './LobbySubcomponents/LobbyContainer';
 import CloseSessionBtn from '../../shared/components/CloseSessionBtn';
+import SidePanel from './LobbySubcomponents/SidePanel';
 
-function SidePanel() {
-  return (
-    <HStack justifyContent="center" minH="100px">
-      <Button w="80%"> + Crear Lobby</Button>
-    </HStack>
-  );
-}
 function LobbySelection() {
   return (
     <Box>

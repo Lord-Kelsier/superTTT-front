@@ -1,5 +1,5 @@
 export const GameType = {
-  SuperTTT: 0,
+  'Super TTT': 0,
 };
 
 export const GameTypeToName: Record<number, string> = {

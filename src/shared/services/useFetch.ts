@@ -5,12 +5,17 @@ async function parseWithStatus(response: Response) {
 }
 /* eslint-disable-next-line -- Aqui body puede ser cualquier objeto por lo 
   que es necesario que exista el any */
-async function useFetchPost(url: string, body: any) {
+async function useFetchPost(url: string, body: any, token?: string | null) {
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: '',
+  };
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
   const response = await fetch(url, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: headers,
     body: JSON.stringify(body),
   });
   return parseWithStatus(response);

@@ -1,8 +1,8 @@
-import { LobbyType } from '../../shared/types/LobbyTypes';
+import { LobbyType } from '../../../shared/types/LobbyTypes';
 import { Text, Flex } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
-import { useFetch } from '../../shared/services/useFetch';
-import { superTTTApiBaseUrl } from '../../shared/consts';
+import { useFetch } from '../../../shared/services/useFetch';
+import { superTTTApiBaseUrl } from '../../../shared/consts';
 import LobbyCard from './LobbyCard';
 import { useNavigate } from 'react-router-dom';
 
