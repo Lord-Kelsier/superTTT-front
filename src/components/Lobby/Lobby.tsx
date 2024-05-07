@@ -58,6 +58,7 @@ function Lobby() {
         <LobbyDetailButtons
           isUserInside={loaderData.isUserInside}
           isUserOwner={loaderData.isUserOwner}
+          lobbyId={lobbyData.id}
         />
       </Box>
     </Flex>
