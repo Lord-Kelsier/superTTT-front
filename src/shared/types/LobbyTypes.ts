@@ -26,6 +26,7 @@ export type LobbyInfo = {
 export type LobbyLoaderData = {
   lobbyData: LobbyInfo;
   isUserInside: boolean;
+  isUserOwner: boolean;
 };
 
 export type LobbyProps = {
