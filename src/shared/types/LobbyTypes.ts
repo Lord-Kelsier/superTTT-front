@@ -23,6 +23,11 @@ export type LobbyInfo = {
   owner: string;
 };
 
+export type LobbyLoaderData = {
+  lobbyData: LobbyInfo;
+  isUserInside: boolean;
+};
+
 export type LobbyProps = {
   lobbyInfo: LobbyInfo;
 };
